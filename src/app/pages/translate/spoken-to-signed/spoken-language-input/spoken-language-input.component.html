@@ -1,0 +1,55 @@
+@if (!isMobile) {
+<div class="translation-text">
+  <label id="spoken-language-label">{{ 'translate.spoken-to-signed.text' | transloco }}</label>
+  <app-desktop-textarea dir="auto" [textControl]="text" [maxLength]="maxTextLength" [lang]="spokenLanguage" />
+  <div id="suggestions" *transloco="let t; read: 'translate.suggestions'">
+    @if (detectedLanguage && detectedLanguage !== spokenLanguage) {
+    <ion-icon name="sparkles" color="primary" />
+    {{ t('translate-from') }}:
+    <a (click)="setDetectedLanguage()">{{ 'languages.' + detectedLanguage | transloco }}</a>
+    }
+    @if (normalizedText$ | async; as normalizedText) {
+    <ion-icon name="sparkles" color="primary" />
+    {{ t('did-you-mean') }}:
+    <a (click)="setText(normalizedText)">{{ normalizedText }}</a>
+    }
+    @if (translatedEnglishText$ | async; as translation) {
+    @if (translation.trim().toLowerCase() !== text.value?.trim().toLowerCase()) {
+    <div class="english-translation">
+      <ion-icon name="language" color="secondary" />
+      <span class="label">English:</span>
+      <span class="value">{{ translation }}</span>
+    </div>
+    }
+    }
+  </div>
+  <div class="actions-row">
+    <ion-button (click)="translate()" class="translate-btn" [disabled]="!text.value">
+      <ion-icon name="sparkles" slot="start"></ion-icon>
+      {{ 'translate.spoken-to-signed.button' | transloco }}
+    </ion-button>
+
+    <app-speech-to-text [lang]="spokenLanguage" (changeText)="text.setValue($event)"></app-speech-to-text>
+
+    <div id="char-count">{{ text.value.length | number }} / {{ maxTextLength | number }}</div>
+  </div>
+</div>
+}
+@if (isMobile) {
+<ion-toolbar appKeyboardFlying>
+  <ion-buttons slot="start">
+    <ion-button (click)="translate()" [disabled]="!text.value">
+      <ion-icon slot="icon-only" name="sparkles" color="primary" />
+    </ion-button>
+
+  </ion-buttons>
+  <ion-textarea id="mobile" autoGrow rows="1" [placeholder]="'translate.spoken-to-signed.placeholder' | transloco"
+    [attr.aria-label]="'translate.spoken-to-signed.text' | transloco" [formControl]="text"
+    [attr.maxLength]="maxTextLength" [lang]="spokenLanguage" enterkeyhint="enter" dir="auto"
+    aria-labelledby="spoken-language-label" autofocus [attr.data-gramm_editor]="false" />
+
+  <ion-buttons slot="end">
+    <app-speech-to-text [lang]="spokenLanguage" (changeText)="text.setValue($event)" matTooltipPosition="before" />
+  </ion-buttons>
+</ion-toolbar>
+}

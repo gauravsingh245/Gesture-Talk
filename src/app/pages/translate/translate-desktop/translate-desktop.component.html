@@ -1,0 +1,22 @@
+<ion-content [fullscreen]="true">
+  <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div class="theme-toggle-wrapper">
+      <div class="pill-toggle" (click)="toggleTheme()" [class.is-dark]="isDarkMode" role="button" tabindex="0">
+        <div class="pill-thumb">
+          <ion-icon [name]="isDarkMode ? 'moon' : 'sunny'"></ion-icon>
+        </div>
+        <div class="pill-background-icons">
+          <ion-icon name="sunny-outline" class="sun-icon"></ion-icon>
+          <ion-icon name="moon-outline" class="moon-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div id="translation-card" style="width: 100%; max-width: 1200px;">
+      <app-language-selectors />
+
+      <div id="content">
+        <app-spoken-to-signed />
+      </div>
+    </div>
+  </div>
+</ion-content>

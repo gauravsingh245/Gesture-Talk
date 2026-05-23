@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+pose-viewer {
+  display: flex;
+  height: 100%;
+  width: auto;
+  margin: 0 auto;
+  font-size: 2em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  aspect-ratio: 1;
+}

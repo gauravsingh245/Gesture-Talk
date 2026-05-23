@@ -1,0 +1,35 @@
+import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
+import { addIcons } from 'ionicons';
+import {
+  addOutline,
+  chevronDown,
+  micOffOutline,
+  micOutline,
+  refreshOutline,
+  sparkles,
+  swapHorizontal,
+} from 'ionicons/icons';
+
+addIcons({
+  'add-outline': addOutline,
+  'chevron-down': chevronDown,
+  'mic-off-outline': micOffOutline,
+  'mic-outline': micOutline,
+  'refresh-outline': refreshOutline,
+  sparkles,
+  'swap-horizontal': swapHorizontal,
+});
+
+import { environment } from './environments/environment';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+bootstrapApplication(AppComponent, {
+  ...appConfig,
+  providers: [provideZoneChangeDetection(), ...appConfig.providers],
+}).catch(err => console.error(err));

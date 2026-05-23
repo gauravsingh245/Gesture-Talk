@@ -1,0 +1,155 @@
+@use '../../../../theme/breakpoints' as breakpoints;
+
+.theme-toggle-wrapper {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1000;
+}
+
+.pill-toggle {
+  width: 64px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  &.is-dark {
+    background: #09090b;
+    border-color: #27272a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.pill-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+.is-dark .pill-thumb {
+  transform: translateX(0);
+  background: #27272a;
+  color: #fafafa;
+}
+
+.pill-toggle:not(.is-dark) .pill-thumb {
+  transform: translateX(32px);
+  background: #f4f4f5;
+  color: #3f3f46;
+}
+
+.pill-background-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px;
+
+  ion-icon {
+    font-size: 14px;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .sun-icon {
+    color: #71717a;
+    opacity: 0;
+  }
+
+  .moon-icon {
+    color: #000000;
+    opacity: 0;
+  }
+}
+
+.is-dark .sun-icon {
+  opacity: 1;
+}
+
+.pill-toggle:not(.is-dark) .moon-icon {
+  opacity: 1;
+}
+
+ion-content {
+  --background: transparent;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 24px;
+}
+
+#translation-card {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: cardAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media #{breakpoints.$breakpoint-gt-sm} {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#content {
+  padding: 40px;
+
+  @media #{breakpoints.$breakpoint-lt-sm} {
+    padding: 24px;
+  }
+}
+
+app-language-selectors {
+  display: block;
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+}

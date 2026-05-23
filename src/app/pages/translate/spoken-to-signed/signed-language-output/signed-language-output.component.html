@@ -1,0 +1,17 @@
+@if (pose$ | async; as pose) {
+<app-skeleton-pose-viewer [src]="pose" #skeletonViewer />
+
+@if (text$ | async; as text) {
+<div class="translated-text-display"
+  style="text-align: center; margin-top: 10px; font-size: 1.2rem; font-weight: bold;">
+  {{ text }}
+</div>
+}
+
+<div class="actions-row" style="display: flex; justify-content: center; margin-top: 15px;">
+  <ion-button (click)="replayAnimation(skeletonViewer)" color="primary" fill="outline">
+    <ion-icon name="refresh-outline" slot="start"></ion-icon>
+    Replay Animation
+  </ion-button>
+</div>
+}
